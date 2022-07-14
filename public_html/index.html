@@ -265,10 +265,10 @@
 
 				data.response.result.featureCollection.features.forEach(function(f){
 					// console.log(f.properties)
-					let 행정구역코드 = f.properties.ctprvn_cd;
-					let 행정구역명 = f.properties.ctp_kor_nm;
+					let ctprvn_cd = f.properties.ctprvn_cd;
+					let ctp_kor_nm = f.properties.ctp_kor_nm;
 					
-					html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+					html +=`<option value="${ctprvn_cd}">${ctp_kor_nm}</option>`
 					
 				})
 				
@@ -293,10 +293,10 @@
 
 					data.response.result.featureCollection.features.forEach(function(f){
 						// console.log(f.properties)
-						let 행정구역코드 = f.properties.sig_cd;
-						let 행정구역명 = f.properties.sig_kor_nm;
+						let sig_cd = f.properties.sig_cd;
+						let sig_kor_nm = f.properties.sig_kor_nm;
 						
-						html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+						html +=`<option value="${sig_cd}">${sig_kor_nm}</option>`
 						
 					})
 		            $('#sigoon_code').html(html);
