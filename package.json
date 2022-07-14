@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engine": {
+    "node": "17.0.1",
+    "npm": "8.1.0"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
