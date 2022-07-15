@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+html {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+.select_class {
+    height: 5%;
+    font-size: 1.5vw;
+}
+
+#sido_code {
+    width: 40%;
+}
+
+#sigoon_code {
+    width: 20%;
+}
