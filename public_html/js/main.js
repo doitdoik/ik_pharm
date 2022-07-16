@@ -167,7 +167,7 @@ async function transmitPharmacy(map, sido, gugun){
                         map: map,
                         position: pharmacy_location,
                         icon: {
-                            content: '<img src="'+ HOME_PATH +'/ico/pharmacy.png"' + 'style= "position: absolute; width: 50px; height: 50px;">',
+                            content: '<img src="'+ HOME_PATH +'/ico/pharmacy.png"' + 'style= "position: absolute; width: 80px; height: 80px;">',
                             size: new naver.maps.Size(50, 52),
                             origin: new naver.maps.Point(0, 0),
                             anchor: new naver.maps.Point(25, 26)
