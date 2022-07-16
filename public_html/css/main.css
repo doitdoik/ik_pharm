@@ -3,6 +3,12 @@
 html {
     font-family: 'Nanum Gothic', sans-serif;
 }
+
+button {
+    height: 5%;
+    width: 6%;
+}
+
 .select_class {
     height: 5%;
     font-size: 1.5vw;

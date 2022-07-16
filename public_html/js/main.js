@@ -12,11 +12,11 @@ async function roadMap(){
     let XY = await getLocation(); 
     //지도를 삽입할 HTML 요소 또는 HTML 요소의 id를 지정합니다.
     var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
-    //옵션 없이 지도 객체를 생성하면 서울 시청을 중심으로 하는 16 레벨의 지도가 생성됩니다.
+    //옵션 없이 지도 객체를 생성하면 서울 시청을 중심으로 하는 17 레벨의 지도가 생성됩니다.
     var mapOptions = {
         //
         center: new naver.maps.LatLng(XY.lat, XY.lon),
-        zoom: 15
+        zoom: 17
     }
     var map = new naver.maps.Map(mapDiv, mapOptions);
 
@@ -24,14 +24,20 @@ async function roadMap(){
 };
 
 // 시군구 검색버튼 눌러서 이동 + 약국
-function testFunc(){
+function searchPharmacyToSection(){
     let sido = document.getElementById("sido_code");
     let gugun = document.getElementById("sigoon_code");
 
     sido = sido.options[sido.selectedIndex].text;
     gugun = gugun.options[gugun.selectedIndex].text
     
-    searchAddressToCoordinate(sido, gugun);
+    if ((sido == "선택") || (gugun == "선택")){
+        alert("행정구역을 선택해 주세요.")
+    }
+    else{
+        searchAddressToCoordinate(sido, gugun);
+    }
+
 }
 
 // 검색된 시군구로 이동 + 약국 찾기
@@ -155,10 +161,17 @@ async function transmitPharmacy(map, sido, gugun){
                     }
 
                     let pharmacy_location = new naver.maps.LatLng(itm.wgs84Lat, itm.wgs84Lon);
-    
+                    let HOME_PATH = window.HOME_PATH || '.';
+                    
                     let marker = new naver.maps.Marker({
                         map: map,
-                        position: pharmacy_location
+                        position: pharmacy_location,
+                        icon: {
+                            content: '<img src="'+ HOME_PATH +'/ico/pharmacy.png"' + 'style= "position: absolute; width: 50px; height: 50px;">',
+                            size: new naver.maps.Size(50, 52),
+                            origin: new naver.maps.Point(0, 0),
+                            anchor: new naver.maps.Point(25, 26)
+                        }
                     });
 
                     var contentString = [
@@ -175,7 +188,7 @@ async function transmitPharmacy(map, sido, gugun){
                         content: contentString,
                         maxWidth: 440,
                         backgroundColor: "#eee",
-                        borderColor: "#2db400",
+                        borderColor: "#ff5252",
                         borderWidth: 5,
                         anchorSize: new naver.maps.Size(30, 30),
                         anchorSkew: true,
