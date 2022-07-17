@@ -9,6 +9,13 @@ button {
     width: 6%;
 }
 
+.iw_inner h2{
+    font-size: 50px;
+}
+
+.iw_inner p{
+    font-size: 40px;
+}
 .select_class {
     height: 5%;
     font-size: 1.5vw;

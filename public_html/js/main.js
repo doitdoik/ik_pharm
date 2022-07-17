@@ -65,7 +65,7 @@ async function searchAddressToCoordinate(sido, gugun) {
         map[0].setCenter(point);
         transmitPharmacy(map[0], sido, gugun);
     });
-    }
+}
 
 // 좌표로 시군구 구하기
 async function searchPharmacy(map, xy){
@@ -162,7 +162,7 @@ async function transmitPharmacy(map, sido, gugun){
 
                     let pharmacy_location = new naver.maps.LatLng(itm.wgs84Lat, itm.wgs84Lon);
                     let HOME_PATH = window.HOME_PATH || '.';
-                    
+                    // 마커 옵션
                     let marker = new naver.maps.Marker({
                         map: map,
                         position: pharmacy_location,
@@ -176,17 +176,17 @@ async function transmitPharmacy(map, sido, gugun){
 
                     var contentString = [
                             '<div class="iw_inner">',
-                            '   <h3>' + dutyName + '</h3>',
+                            '   <h2>' + dutyName + '</h2>',
                             '   <p>' + dutyAddr + '<br />',
                             '       ' + dutyTel1 + '<br />',
                             '       ' + dutyTime + '',
                             '   </p>',
                             '</div>'
                         ].join('');
-
+                    // 팝업창 옵션
                     var infowindow = new naver.maps.InfoWindow({
                         content: contentString,
-                        maxWidth: 440,
+                        maxWidth: 900,
                         backgroundColor: "#eee",
                         borderColor: "#ff5252",
                         borderWidth: 5,
