@@ -134,32 +134,36 @@ async function ajaxPharmacy(map, sido, gugun){
                     let dutyTime = ""; 
                     let h, m = "";
                     
-                    // 영업시간이 0900 1800 이런식으로 오기에 파싱이 필요할듯 이것도 함수화 해야하나?
+                    // 함수하나로 영업시간 계산하게 수정함 
+                    // 좀더 수정해야함 지금은 for문 타는데 재귀식으로? 더간단하게 처리해볼것
+                    dutyTime = separateDutyTime(itm);
 
-                    if (itm.dutyTime1s && itm.dutyTime1c){
-                        dutyTime += "월요일: " + separateDutyTime(itm.dutyTime1s, itm.dutyTime1c) + "<br>";
-                    }
-                    if(itm.dutyTime2s && itm.dutyTime2c) {
-                        dutyTime += "화요일: " + separateDutyTime(itm.dutyTime2s, itm.dutyTime2c) + "<br>";
-                    }
-                    if(itm.dutyTime3s && itm.dutyTime3c) {
-                        dutyTime += "수요일: " + separateDutyTime(itm.dutyTime3s, itm.dutyTime3c) + "<br>";
-                    }
-                    if(itm.dutyTime4s && itm.dutyTime4c) {
-                        dutyTime += "목요일: " + separateDutyTime(itm.dutyTime4s, itm.dutyTime4c) + "<br>";
-                    }
-                    if(itm.dutyTime5s && itm.dutyTime5c) {
-                        dutyTime += "금요일: " + separateDutyTime(itm.dutyTime5s, itm.dutyTime5c) + "<br>";
-                    }
-                    if(itm.dutyTime6s && itm.dutyTime6c) {
-                        dutyTime += "토요일: " + separateDutyTime(itm.dutyTime6s, itm.dutyTime6c) + "<br>";
-                    }
-                    if(itm.dutyTime7s && itm.dutyTime7c) {
-                        dutyTime += "일요일: " + separateDutyTime(itm.dutyTime7s, itm.dutyTime7c) + "<br>";
-                    }
-                    if(itm.dutyTime8s && itm.dutyTime8c) {
-                        dutyTime += "공휴일: " + separateDutyTime(itm.dutyTime8s, itm.dutyTime8c) + "<br>";
-                    }
+                    // 영업시간이 0900 1800 이런식으로 오기에 파싱이 필요할듯 이것도 함수화 해야하나?
+                    // 지금도 비효율적임 월화수목금토일공휴일 돌때마다 함수탐
+                    // if (itm.dutyTime1s && itm.dutyTime1c){
+                    //     dutyTime += "월요일: " + separateDutyTime(itm.dutyTime1s, itm.dutyTime1c) + "<br>";
+                    // }
+                    // if(itm.dutyTime2s && itm.dutyTime2c) {
+                    //     dutyTime += "화요일: " + separateDutyTime(itm.dutyTime2s, itm.dutyTime2c) + "<br>";
+                    // }
+                    // if(itm.dutyTime3s && itm.dutyTime3c) {
+                    //     dutyTime += "수요일: " + separateDutyTime(itm.dutyTime3s, itm.dutyTime3c) + "<br>";
+                    // }
+                    // if(itm.dutyTime4s && itm.dutyTime4c) {
+                    //     dutyTime += "목요일: " + separateDutyTime(itm.dutyTime4s, itm.dutyTime4c) + "<br>";
+                    // }
+                    // if(itm.dutyTime5s && itm.dutyTime5c) {
+                    //     dutyTime += "금요일: " + separateDutyTime(itm.dutyTime5s, itm.dutyTime5c) + "<br>";
+                    // }
+                    // if(itm.dutyTime6s && itm.dutyTime6c) {
+                    //     dutyTime += "토요일: " + separateDutyTime(itm.dutyTime6s, itm.dutyTime6c) + "<br>";
+                    // }
+                    // if(itm.dutyTime7s && itm.dutyTime7c) {
+                    //     dutyTime += "일요일: " + separateDutyTime(itm.dutyTime7s, itm.dutyTime7c) + "<br>";
+                    // }
+                    // if(itm.dutyTime8s && itm.dutyTime8c) {
+                    //     dutyTime += "공휴일: " + separateDutyTime(itm.dutyTime8s, itm.dutyTime8c) + "<br>";
+                    // }
 
                     let pharmacy_location = new naver.maps.LatLng(itm.wgs84Lat, itm.wgs84Lon);
                     let HOME_PATH = window.HOME_PATH || '.';
@@ -231,16 +235,27 @@ async function getLocation() {
     return XY;
 }
 
-// 영업 시간 합치는 함수
-function separateDutyTime(startTime, closeTime){
-    let startH = String(startTime).substring(0,2);
-    let startM = String(startTime).substring(2,4);
-    let closeH = String(closeTime).substring(0,2);
-    let closeM = String(closeTime).substring(2,4);
-    let res = startH + ":" + startM + " ~ " + closeH + ":" + closeM;
-    return res;
-};
 
+// 영업 시간 한번만 돌게하는 함수 테스트
+function separateDutyTime(itm){
+    tmpArr = ["","월","화","수","목","금","토","일","공휴일"];
+    let strTime = "dutyTime";
+    let res = "";
+    // 이부분 꼭 포문??
+    for(let i=1; i<9; i++){
+        let startTime = itm[strTime+i+"s"];
+        let closeTime = itm[strTime+i+"c"];
+        if(startTime && closeTime){
+            let startH = String(startTime).substring(0,2);
+            let startM = String(startTime).substring(2,4);
+            let closeH = String(closeTime).substring(0,2);
+            let closeM = String(closeTime).substring(2,4);
+            res += tmpArr[i] + " - " + startH + ":" + startM + " ~ " + closeH + ":" + closeM + "<br>";
+        }
+    }
+
+    return res;
+}
 
 
 //  시군구 데이터 불러오는 함수	
