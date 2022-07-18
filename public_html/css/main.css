@@ -4,21 +4,28 @@ html {
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-button {
-    height: 5%;
-    width: 6%;
+.title_name{
+    font-size: 2vh;
 }
 
 .iw_inner h2{
-    font-size: 50px;
+    font-size: 3vh;
 }
 
 .iw_inner p{
-    font-size: 40px;
+    font-size: 1.5vh;
 }
+
 .select_class {
     height: 5%;
-    font-size: 1.5vw;
+    padding: 10px;
+    font-size: 1.5vh;
+}
+
+button {
+    height: 5%;
+    width: 15%;
+    font-size: 1.5vh;
 }
 
 #sido_code {
