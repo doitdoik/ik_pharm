@@ -167,7 +167,7 @@ async function transmitPharmacy(map, sido, gugun){
                         map: map,
                         position: pharmacy_location,
                         icon: {
-                            content: '<img src="'+ HOME_PATH +'/ico/pharmacy.png"' + 'style= "position: absolute; width: 80px; height: 80px;">',
+                            content: '<img src="'+ HOME_PATH +'/ico/pharmacy.png"' + 'style= "position: absolute; width: 5vh; height: 5vh;">',
                             size: new naver.maps.Size(50, 52),
                             origin: new naver.maps.Point(0, 0),
                             anchor: new naver.maps.Point(25, 26)
@@ -262,7 +262,7 @@ $.ajax({
     error: function(xhr, stat, err) {}
 });
 
-
+// 시군구 데이터 불러오기2
 $(document).on("change","#sido_code",function(){
     let thisVal = $(this).val();		
 
