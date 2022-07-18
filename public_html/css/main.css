@@ -6,6 +6,10 @@ html {
     
 }
 
+.iw_inner{
+    padding: 10px;
+}
+
 .iw_inner h2{
     font-size: 3vh;
 }

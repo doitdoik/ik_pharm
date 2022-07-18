@@ -63,7 +63,7 @@ async function searchAddressToCoordinate(sido, gugun) {
         point = new naver.maps.Point(item.x, item.y);
 
         map[0].setCenter(point);
-        transmitPharmacy(map[0], sido, gugun);
+        ajaxPharmacy(map[0], sido, gugun);
     });
 }
 
@@ -101,12 +101,12 @@ async function searchPharmacy(map, xy){
         // console.log("sido--"+sido+"//"+"gugun"+gugun);
         let dateCnt = 1;
 
-        transmitPharmacy(map, sido, gugun);
+        ajaxPharmacy(map, sido, gugun);
     });
 }
 
 // 약국데이터 통신 함수
-async function transmitPharmacy(map, sido, gugun){
+async function ajaxPharmacy(map, sido, gugun){
     console.log(sido);
     console.log(gugun);
     $.ajax({
@@ -134,30 +134,31 @@ async function transmitPharmacy(map, sido, gugun){
                     let dutyTime = ""; 
                     let h, m = "";
                     
-                    // 일단 for문 작성해보고 함수화해서 forEach안에서 함수 호출하는방식으로 변경하자
-                    // 시작시간 종료시간, 요일처리??? 골아프다
-                    for(let i=1; i<9; i++){
-                        let openTmp = "dutyTime" + i + "s";
-                        let optnTmpNext = "dutyTime" + (i+1) + "s";
-                        let closeTmp = "dutyTime" + i + "c";
-                        let closeTmpNext = "dutyTime" + (i+1) + "c";
-                        if(itm[openTmp]){
-                            if((itm[openTmp] == itm[optnTmpNext]) && (itm[closeTmp] == itm[closeTmpNext])){
-
-                            };
-                        }
-                        else{
-
-                        };
-                    };
-
                     // 영업시간이 0900 1800 이런식으로 오기에 파싱이 필요할듯 이것도 함수화 해야하나?
-                    let startH = String(itm.dutyTime1s).substring(0,2);
-                    let startM = String(itm.dutyTime1s).substring(2,4);
-                    let closeH = String(itm.dutyTime1c).substring(0,2);
-                    let closeM = String(itm.dutyTime1c).substring(2,4);
+
                     if (itm.dutyTime1s && itm.dutyTime1c){
-                        dutyTime += "월요일: " + startH + ":" + startM + " ~ " + closeH + ":" + closeM + "<br>";
+                        dutyTime += "월요일: " + separateDutyTime(itm.dutyTime1s, itm.dutyTime1c) + "<br>";
+                    }
+                    if(itm.dutyTime2s && itm.dutyTime2c) {
+                        dutyTime += "화요일: " + separateDutyTime(itm.dutyTime2s, itm.dutyTime2c) + "<br>";
+                    }
+                    if(itm.dutyTime3s && itm.dutyTime3c) {
+                        dutyTime += "수요일: " + separateDutyTime(itm.dutyTime3s, itm.dutyTime3c) + "<br>";
+                    }
+                    if(itm.dutyTime4s && itm.dutyTime4c) {
+                        dutyTime += "목요일: " + separateDutyTime(itm.dutyTime4s, itm.dutyTime4c) + "<br>";
+                    }
+                    if(itm.dutyTime5s && itm.dutyTime5c) {
+                        dutyTime += "금요일: " + separateDutyTime(itm.dutyTime5s, itm.dutyTime5c) + "<br>";
+                    }
+                    if(itm.dutyTime6s && itm.dutyTime6c) {
+                        dutyTime += "토요일: " + separateDutyTime(itm.dutyTime6s, itm.dutyTime6c) + "<br>";
+                    }
+                    if(itm.dutyTime7s && itm.dutyTime7c) {
+                        dutyTime += "일요일: " + separateDutyTime(itm.dutyTime7s, itm.dutyTime7c) + "<br>";
+                    }
+                    if(itm.dutyTime8s && itm.dutyTime8c) {
+                        dutyTime += "공휴일: " + separateDutyTime(itm.dutyTime8s, itm.dutyTime8c) + "<br>";
                     }
 
                     let pharmacy_location = new naver.maps.LatLng(itm.wgs84Lat, itm.wgs84Lon);
@@ -231,8 +232,13 @@ async function getLocation() {
 }
 
 // 영업 시간 합치는 함수
-function calcDutyTime(){
-
+function separateDutyTime(startTime, closeTime){
+    let startH = String(startTime).substring(0,2);
+    let startM = String(startTime).substring(2,4);
+    let closeH = String(closeTime).substring(0,2);
+    let closeM = String(closeTime).substring(2,4);
+    let res = startH + ":" + startM + " ~ " + closeH + ":" + closeM;
+    return res;
 };
 
 
