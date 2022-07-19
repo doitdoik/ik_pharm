@@ -154,9 +154,7 @@ async function ajaxPharmacy(map, sido, gugun){
                     var contentString = [
                             '<div class="iw_inner">',
                             '   <h2>' + dutyName + '</h2>',
-                            '   <p>주소: <a href="nmap://route/public?dlat=35.17982543369992&dlng=129.07499499992576&dname=%EB%B6%80%EC%82%B0%EC%8B%9C%EC%B2%AD">' + dutyAddr + '</a><br />',
-                            //nmap://route/public?dlat='+itm.wgs84Lat+'&dlng='+itm.wgs84Lon+'&name='+dutyAddr+'
-                            //nmap://route/public?dlat=35.17982543369992&dlng=129.07499499992576&dname=%EB%B6%80%EC%82%B0%EC%8B%9C%EC%B2%AD
+                            '   <p>주소: <a href="nmap://route/public?dlat='+itm.wgs84Lat+'&dlng='+itm.wgs84Lon+'&name='+encodeURI(dutyAddr)+'">' + dutyAddr + '</a><br />',
                             '   TEL:    <a/ href="tel:' + dutyTel1 + '">' + dutyTel1 + '</a><br />',
                             '   영업시간<br />', 
                             '       ' + dutyTime + '',
