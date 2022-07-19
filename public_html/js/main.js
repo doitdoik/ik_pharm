@@ -1,8 +1,9 @@
 $.support.cors = true;
 // 시작시 현재 위치 기반으로 약국 호출
+const chkMobile = isMobileYn();
+
 $(document).ready(async function(){
     let res = await roadMap();
-    const chkMobile = isMobileYn();
     
     searchPharmacy(res[0], res[1]);
 });
@@ -151,9 +152,10 @@ async function ajaxPharmacy(map, sido, gugun){
                             anchor: new naver.maps.Point(25, 26)
                         }
                     });
-                    if(isMobileYn) {
-
-                        var contentString = [
+                    let contentString = [];
+                    // 모바일, pc 체크해서 길찾기 연동
+                    if(chkMobile) {
+                        contentString = [
                             '<div class="iw_inner">',
                             '   <h2>' + dutyName + '</h2>',
                             '   <p>주소: <a href="nmap://route/public?dlat='+itm.wgs84Lat+'&dlng='+itm.wgs84Lon+'&dname='+encodeURI(dutyName)+'">' + dutyAddr + '</a><br />',
@@ -164,11 +166,11 @@ async function ajaxPharmacy(map, sido, gugun){
                             '</div>'
                         ].join('');
                     }else{
-                        contentString =[
+                        contentString = [
                             '<div class="iw_inner">',
                             '   <h2>' + dutyName + '</h2>',
-                            '   <p>주소:' + dutyAddr + '</a><br />',
-                            '   TEL:    <a/ href="tel:' + dutyTel1 + '">' + dutyTel1 + '</a><br />',
+                            '   <p>주소: ' + dutyAddr + '<br />',
+                            '   TEL: ' + dutyTel1 + '<br />',
                             '   영업시간<br />', 
                             '       ' + dutyTime + '',
                             '   </p>',
