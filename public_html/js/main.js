@@ -2,7 +2,8 @@ $.support.cors = true;
 // 시작시 현재 위치 기반으로 약국 호출
 $(document).ready(async function(){
     let res = await roadMap();
-    
+    let tmpReturn = isMobileYn();
+    alert(tmpReturn);
     searchPharmacy(res[0], res[1]);
 });
 
@@ -228,6 +229,19 @@ function separateDutyTime(itm){
     }
 
     return res;
+}
+
+// 모바일, 웹 구분 함수
+function isMobileYn(){
+    var filter = "win16|win32|win64|mac|macintel";
+    if (navigator.platform) {
+        if (filter.indexOf(navigator.platform.toLowerCase()) < 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return false;
 }
 
 
