@@ -1,4 +1,3 @@
-
 $.support.cors = true;
 // 시작시 현재 위치 기반으로 약국 호출
 $(document).ready(async function(){
@@ -32,7 +31,7 @@ function searchPharmacyToSection(){
     gugun = gugun.options[gugun.selectedIndex].text
     
     if ((sido == "선택") || (gugun == "선택")){
-        alert("행정구역을 선택해 주세요.")
+        alert("행정구역을 선택해 주세요.");
     }
     else{
         searchAddressToCoordinate(sido, gugun);
@@ -155,7 +154,7 @@ async function ajaxPharmacy(map, sido, gugun){
                     var contentString = [
                             '<div class="iw_inner">',
                             '   <h2>' + dutyName + '</h2>',
-                            '   <p>주소:' + dutyAddr + '<br />',
+                            '   <p>주소: <a href="nmap://place?lat='+itm.wgs84Lat+'&lng='+itm.wgs84Lon+'&name='+dutyName+'">' + dutyAddr + '</a><br />',
                             '   TEL:    <a/ href="tel:' + dutyTel1 + '">' + dutyTel1 + '</a><br />',
                             '   영업시간<br />', 
                             '       ' + dutyTime + '',
@@ -212,7 +211,7 @@ async function getLocation() {
 
 // 영업 시간 한번만 돌게하는 함수 테스트
 function separateDutyTime(itm){
-    tmpArr = ["","월","화","수","목","금","토","일","공휴일"];
+    let tmpArr = ["","월","화","수","목","금","토","일","공휴일"];
     let strTime = "dutyTime";
     let res = "";
     // 이부분 꼭 포문??
