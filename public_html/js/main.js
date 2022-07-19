@@ -2,8 +2,8 @@ $.support.cors = true;
 // 시작시 현재 위치 기반으로 약국 호출
 $(document).ready(async function(){
     let res = await roadMap();
-    let tmpReturn = isMobileYn();
-    alert(tmpReturn);
+    const chkMobile = isMobileYn();
+    
     searchPharmacy(res[0], res[1]);
 });
 
@@ -151,8 +151,9 @@ async function ajaxPharmacy(map, sido, gugun){
                             anchor: new naver.maps.Point(25, 26)
                         }
                     });
+                    if(isMobileYn) {
 
-                    var contentString = [
+                        var contentString = [
                             '<div class="iw_inner">',
                             '   <h2>' + dutyName + '</h2>',
                             '   <p>주소: <a href="nmap://route/public?dlat='+itm.wgs84Lat+'&dlng='+itm.wgs84Lon+'&dname='+encodeURI(dutyName)+'">' + dutyAddr + '</a><br />',
@@ -162,6 +163,19 @@ async function ajaxPharmacy(map, sido, gugun){
                             '   </p>',
                             '</div>'
                         ].join('');
+                    }else{
+                        contentString =[
+                            '<div class="iw_inner">',
+                            '   <h2>' + dutyName + '</h2>',
+                            '   <p>주소:' + dutyAddr + '</a><br />',
+                            '   TEL:    <a/ href="tel:' + dutyTel1 + '">' + dutyTel1 + '</a><br />',
+                            '   영업시간<br />', 
+                            '       ' + dutyTime + '',
+                            '   </p>',
+                            '</div>'
+                        ].join('');
+
+                    }
                     // 팝업창 옵션
                     var infowindow = new naver.maps.InfoWindow({
                         content: contentString,
