@@ -138,33 +138,6 @@ async function ajaxPharmacy(map, sido, gugun){
                     // 좀더 수정해야함 지금은 for문 타는데 재귀식으로? 더간단하게 처리해볼것
                     dutyTime = separateDutyTime(itm);
 
-                    // 영업시간이 0900 1800 이런식으로 오기에 파싱이 필요할듯 이것도 함수화 해야하나?
-                    // 지금도 비효율적임 월화수목금토일공휴일 돌때마다 함수탐
-                    // if (itm.dutyTime1s && itm.dutyTime1c){
-                    //     dutyTime += "월요일: " + separateDutyTime(itm.dutyTime1s, itm.dutyTime1c) + "<br>";
-                    // }
-                    // if(itm.dutyTime2s && itm.dutyTime2c) {
-                    //     dutyTime += "화요일: " + separateDutyTime(itm.dutyTime2s, itm.dutyTime2c) + "<br>";
-                    // }
-                    // if(itm.dutyTime3s && itm.dutyTime3c) {
-                    //     dutyTime += "수요일: " + separateDutyTime(itm.dutyTime3s, itm.dutyTime3c) + "<br>";
-                    // }
-                    // if(itm.dutyTime4s && itm.dutyTime4c) {
-                    //     dutyTime += "목요일: " + separateDutyTime(itm.dutyTime4s, itm.dutyTime4c) + "<br>";
-                    // }
-                    // if(itm.dutyTime5s && itm.dutyTime5c) {
-                    //     dutyTime += "금요일: " + separateDutyTime(itm.dutyTime5s, itm.dutyTime5c) + "<br>";
-                    // }
-                    // if(itm.dutyTime6s && itm.dutyTime6c) {
-                    //     dutyTime += "토요일: " + separateDutyTime(itm.dutyTime6s, itm.dutyTime6c) + "<br>";
-                    // }
-                    // if(itm.dutyTime7s && itm.dutyTime7c) {
-                    //     dutyTime += "일요일: " + separateDutyTime(itm.dutyTime7s, itm.dutyTime7c) + "<br>";
-                    // }
-                    // if(itm.dutyTime8s && itm.dutyTime8c) {
-                    //     dutyTime += "공휴일: " + separateDutyTime(itm.dutyTime8s, itm.dutyTime8c) + "<br>";
-                    // }
-
                     let pharmacy_location = new naver.maps.LatLng(itm.wgs84Lat, itm.wgs84Lon);
                     let HOME_PATH = window.HOME_PATH || '.';
                     // 마커 옵션
@@ -182,8 +155,9 @@ async function ajaxPharmacy(map, sido, gugun){
                     var contentString = [
                             '<div class="iw_inner">',
                             '   <h2>' + dutyName + '</h2>',
-                            '   <p>' + dutyAddr + '<br />',
-                            '       ' + dutyTel1 + '<br />',
+                            '   <p>주소:' + dutyAddr + '<br />',
+                            '   TEL:    <a/ href="tel:' + dutyTel1 + '">' + dutyTel1 + '</a><br />',
+                            '   영업시간<br />', 
                             '       ' + dutyTime + '',
                             '   </p>',
                             '</div>'
