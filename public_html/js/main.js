@@ -159,7 +159,7 @@ async function ajaxPharmacy(map, sido, gugun){
                     if(chkMobile) {
                         contentString = [
                             '<div class="iw_inner">',
-                            '   <h2>' + dutyName + '</h2>',
+                            '   <h3>' + dutyName + '</h3>',
                             '   <p>주소: <a href="nmap://route/public?dlat='+itm.wgs84Lat+'&dlng='+itm.wgs84Lon+'&dname='+encodeURI(dutyName)+'">' + dutyAddr + '</a><br />',
                             '   TEL:    <a/ href="tel:' + dutyTel1 + '">' + dutyTel1 + '</a><br />',
                             '   영업시간<br />', 
@@ -170,9 +170,9 @@ async function ajaxPharmacy(map, sido, gugun){
                     }else{
                         contentString = [
                             '<div class="iw_inner">',
-                            '   <h2>' + dutyName + '</h2>',
+                            '   <h3>' + dutyName + '</h3>',
                             //http://map.naver.com/index.nhn?slng=127&slat=37.5&stext=출발지명&elng=127.5&elat=37.4&pathType=0&showMap=true&etext=도착지명&menu=route
-                            '   <p><a href="http://map.naver.com/index.nhn?slng='+currentXY.lon+'&slat='+currentXY.lat+'&stext=현재위치&elng='+itm.wgs84Lon+'&elat='+itm.wgs84Lat+'&pathType=0&showMap=true&etext='+dutyName+'&menu=route주소:'+dutyAddr+'" target="_blank">' + dutyAddr + '</a><br />',
+                            '   <p><a href="http://map.naver.com/index.nhn?slng='+currentXY.lon+'&slat='+currentXY.lat+'&stext=현재 위치&elng='+itm.wgs84Lon+'&elat='+itm.wgs84Lat+'&pathType=0&showMap=true&etext='+dutyName+'&menu=route주소:'+dutyAddr+'" target="_blank">' + dutyAddr + '</a><br />',
                             '   TEL: ' + dutyTel1 + '<br />',
                             '   영업시간<br />', 
                             '   ' + dutyTime + '',
@@ -185,12 +185,13 @@ async function ajaxPharmacy(map, sido, gugun){
                     var infowindow = new naver.maps.InfoWindow({
                         content: contentString,
                         maxWidth: 900,
-                        backgroundColor: "#eee",
-                        borderColor: "#ff5252",
+                        backgroundColor: "gray",
+                        
+                        borderColor: "black",
                         borderWidth: 5,
                         anchorSize: new naver.maps.Size(30, 30),
                         anchorSkew: true,
-                        anchorColor: "#eee",
+                        anchorColor: "gray",
                         pixelOffset: new naver.maps.Point(20, -20)
                     });
 
