@@ -1,7 +1,8 @@
 $.support.cors = true;
-// 시작시 현재 위치 기반으로 약국 호출
-const chkMobile = isMobileYn();
+// 모바일, pc 확인 전역변수
+const chkMobile = isMobileChk();
 
+// 시작시 현재 위치 기반으로 약국 호출
 $(document).ready(async function(){
     let res = await roadMap();
     
@@ -126,7 +127,7 @@ async function ajaxPharmacy(map, sido, gugun){
             success : function(data) { 
                 console.log(data)
                 // api통신해서 받은 약국주소 데이터
-                data.items.item.forEach(function(itm, index){
+                data.items.item.forEach(async function(itm, index){
                     let dutyName = itm.dutyName; // 약국명
                     let dutyAddr = itm.dutyAddr; // 주소
                     let dutyTel1 = itm.dutyTel1; // 전화번호
@@ -153,6 +154,7 @@ async function ajaxPharmacy(map, sido, gugun){
                         }
                     });
                     let contentString = [];
+                    let currentXY = await getLocation();
                     // 모바일, pc 체크해서 길찾기 연동
                     if(chkMobile) {
                         contentString = [
@@ -169,10 +171,11 @@ async function ajaxPharmacy(map, sido, gugun){
                         contentString = [
                             '<div class="iw_inner">',
                             '   <h2>' + dutyName + '</h2>',
-                            '   <p>주소: ' + dutyAddr + '<br />',
+                            //http://map.naver.com/index.nhn?slng=127&slat=37.5&stext=출발지명&elng=127.5&elat=37.4&pathType=0&showMap=true&etext=도착지명&menu=route
+                            '   <p><a href="http://map.naver.com/index.nhn?slng='+currentXY.lon+'&slat='+currentXY.lat+'&stext=현재위치&elng='+itm.wgs84Lon+'&elat='+itm.wgs84Lat+'&pathType=0&showMap=true&etext='+dutyName+'&menu=route주소:'+dutyAddr+'" target="_blank">' + dutyAddr + '</a><br />',
                             '   TEL: ' + dutyTel1 + '<br />',
                             '   영업시간<br />', 
-                            '       ' + dutyTime + '',
+                            '   ' + dutyTime + '',
                             '   </p>',
                             '</div>'
                         ].join('');
@@ -248,7 +251,7 @@ function separateDutyTime(itm){
 }
 
 // 모바일, 웹 구분 함수
-function isMobileYn(){
+function isMobileChk(){
     var filter = "win16|win32|win64|mac|macintel";
     if (navigator.platform) {
         if (filter.indexOf(navigator.platform.toLowerCase()) < 0) {

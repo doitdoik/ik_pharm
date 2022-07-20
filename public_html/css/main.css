@@ -14,6 +14,12 @@ html {
     font-size: 3vh;
 }
 
+.iw_inner a{
+    text-decoration: none;
+    color: black;
+    font-weight: bolder;
+}
+
 .iw_inner p{
     font-size: 1.5vh;
 }
