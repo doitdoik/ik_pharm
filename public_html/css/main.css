@@ -8,12 +8,10 @@ html {
 
 .iw_inner{
     padding: 10px;
+    font-size: 1.5vh;
     
 }
 
-.iw_inner h2{
-    font-size: 2vh;
-}
 
 .iw_inner a{
     text-decoration: none;
