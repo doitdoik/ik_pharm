@@ -45,6 +45,10 @@ function searchPharmacyToSection(){
 // 검색된 시군구로 이동 + 약국 찾기
 async function searchAddressToCoordinate(sido, gugun) {
     var map = await roadMap();
+    if(sido == gugun){
+        gugun = "";
+        console.log("여기");
+    }
     let address = sido + " " + gugun;
     console.log(address);
     naver.maps.Service.geocode({
@@ -58,15 +62,35 @@ async function searchAddressToCoordinate(sido, gugun) {
         }
 
         if (response.v2.meta.totalCount === 0) {
-        return alert('No result.');
+        return alert('검색 결과가 없습니다.');
         }
 
         item = response.v2.addresses[0],
         point = new naver.maps.Point(item.x, item.y);
 
         map[0].setCenter(point);
-        ajaxPharmacy(map[0], sido, gugun);
+
+        let sido_arr = sido.split(" ");
+        let gugun_arr = gugun.split(" ");
+        
+        let sigungu = verifySection(sido_arr, gugun_arr);
+
+        ajaxPharmacy(map[0], sigungu[0], sigungu[1]);
     });
+}
+
+// 행정구역 검증 함수
+function verifySection(sido_arr, gugun_arr){
+
+    if(sido_arr.length == 1){
+        sido = sido_arr[0];
+        gugun = gugun_arr[0];
+    }
+    else if(sido_arr.length > 1){
+        sido = sido_arr[0];
+        gugun = sido_arr[1];
+    }
+    return [sido, gugun];
 }
 
 // 좌표로 시군구 구하기
@@ -84,26 +108,9 @@ async function searchPharmacy(map, xy){
         let sido_arr = items[0].addrdetail.sido.split(" ");
         let gugun_arr = items[0].addrdetail.sigugun.split(" ");
         
-        let sido = "";
-        let gugun = "";
-        
-        if(sido_arr.length == 1){
-            sido = sido_arr[0];
-            gugun = gugun_arr[0];
-        }
-        else if(sido_arr.length > 1){
-            sido = sido_arr[0];
-            gugun = sido_arr[1];
-        }
+        let sigungu = verifySection(sido_arr, gugun_arr);
 
-        // let sido = document.getElementById("sido_code");
-        // let gugun = document.getElementById("sigoon_code");
-        // sido = sido.options[sido.selectedIndex].text;
-        // gugun = gugun.options[gugun.selectedIndex].text;
-        // console.log("sido--"+sido+"//"+"gugun"+gugun);
-        let dateCnt = 1;
-
-        ajaxPharmacy(map, sido, gugun);
+        ajaxPharmacy(map, sigungu[0], sigungu[1]);
     });
 }
 
@@ -177,7 +184,7 @@ async function ajaxPharmacy(map, sido, gugun){
                         //http://map.naver.com/index.nhn?slng=127&slat=37.5&stext=출발지명&elng=127.5&elat=37.4&pathType=0&showMap=true&etext=도착지명&menu=route
                         contentString = [
                             '<div class="iw_inner">',
-                            '   <div><h3>' + dutyName + '</h3></div>',
+                            '   <div><h2>' + dutyName + '</h2></div>',
                             '   <div class="iw_inner_div"><span class="ico_span"><img src="/ico/location.png" style="height:2vh"></span>'+ dutyAddr + '</div>',
                             '   <div class="iw_inner_div">',
                             '       <span class="ico_span"><img src="/ico/route.png" style="height:2vh"></span>',
@@ -199,7 +206,7 @@ async function ajaxPharmacy(map, sido, gugun){
                         borderColor: "black",
                         borderWidth: 5,
                         anchorSize: new naver.maps.Size(30, 30),
-                        anchorSkew: true,
+                        // anchorSkew: true,
                         anchorColor: "white",
                         pixelOffset: new naver.maps.Point(20, -20)
                     });
