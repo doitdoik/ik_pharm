@@ -28,6 +28,8 @@ html {
 .iw_inner_div{
     padding: 3px;
     height: 3vh;
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid gray;
 }
 
@@ -39,6 +41,9 @@ html {
     padding: 2px;
 }
 
+.ico_span{
+    margin-right: 4px;
+}
 .select_class {
     height: 5%;
     padding: 10px;
