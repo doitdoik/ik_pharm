@@ -157,26 +157,33 @@ async function ajaxPharmacy(map, sido, gugun){
                     let currentXY = await getLocation();
                     // 모바일, pc 체크해서 길찾기 연동
                     if(chkMobile) {
+                        // mobile
                         contentString = [
                             '<div class="iw_inner">',
-                            '   <h3>' + dutyName + '</h3>',
-                            '   <p>주소: <a href="nmap://route/public?dlat='+itm.wgs84Lat+'&dlng='+itm.wgs84Lon+'&dname='+encodeURI(dutyName)+'">' + dutyAddr + '</a><br />',
-                            '   TEL:    <a/ href="tel:' + dutyTel1 + '">' + dutyTel1 + '</a><br />',
-                            '   영업시간<br />', 
-                            '       ' + dutyTime + '',
-                            '   </p>',
+                            '   <div><h2>' + dutyName + '</h2></div>',
+                            '   <div><img src="/ico/location.png" style="height:2vh">' + dutyAddr + '</div>',
+                            '   <div class="iw_inner_div">',
+                            '   <span><a href="nmap://route/public?dlat='+itm.wgs84Lat+'&dlng='+itm.wgs84Lon+'&dname='+encodeURI(dutyName)+'"> 길찾기 </a></span>',
+                            '   </div>',
+                            '   <div><img src="/ico/call.png" style="height:2vh"><a/ href="tel:' + dutyTel1 + '">' + dutyTel1 + '</a></div>',
+                            '   <div>영업시간</div>', 
+                            '   <div>' + dutyTime + '</div>',
+                            '   ',
                             '</div>'
                         ].join('');
                     }else{
+                        // pc
+                        //http://map.naver.com/index.nhn?slng=127&slat=37.5&stext=출발지명&elng=127.5&elat=37.4&pathType=0&showMap=true&etext=도착지명&menu=route
                         contentString = [
                             '<div class="iw_inner">',
-                            '   <h3>' + dutyName + '</h3>',
-                            //http://map.naver.com/index.nhn?slng=127&slat=37.5&stext=출발지명&elng=127.5&elat=37.4&pathType=0&showMap=true&etext=도착지명&menu=route
-                            '   <p><a href="http://map.naver.com/index.nhn?slng='+currentXY.lon+'&slat='+currentXY.lat+'&stext=현재 위치&elng='+itm.wgs84Lon+'&elat='+itm.wgs84Lat+'&pathType=0&showMap=true&etext='+dutyName+'&menu=route주소:'+dutyAddr+'" target="_blank">' + dutyAddr + '</a><br />',
-                            '   TEL: ' + dutyTel1 + '<br />',
-                            '   영업시간<br />', 
-                            '   ' + dutyTime + '',
-                            '   </p>',
+                            '   <div><h3>' + dutyName + '</h3></div>',
+                            '   <div class="iw_inner_div"><img src="/ico/location.png" style="height:2vh">'+ dutyAddr + '</div>',
+                            '   <div class="iw_inner_div">',
+                            '   <span><a href="http://map.naver.com/index.nhn?slng='+currentXY.lon+'&slat='+currentXY.lat+'&stext=현재 위치&elng='+itm.wgs84Lon+'&elat='+itm.wgs84Lat+'&pathType=0&showMap=true&etext='+dutyName+'&menu=route주소:'+dutyAddr+'" target="_blank">길찾기</a></span>',
+                            '   </div>',
+                            '   <div class="iw_inner_div"><img src="/ico/call.png" style="height:2vh">' + dutyTel1 + '</div>',
+                            '   <div class="iw_inner_div"><img src="/ico/clock.png" style="height:2vh">영업시간 </div>', 
+                            '   <div class="iw_inner_duty">' + dutyTime + '</div>',
                             '</div>'
                         ].join('');
 
@@ -185,13 +192,13 @@ async function ajaxPharmacy(map, sido, gugun){
                     var infowindow = new naver.maps.InfoWindow({
                         content: contentString,
                         maxWidth: 900,
-                        backgroundColor: "gray",
+                        backgroundColor: "white",
                         
                         borderColor: "black",
                         borderWidth: 5,
                         anchorSize: new naver.maps.Size(30, 30),
                         anchorSkew: true,
-                        anchorColor: "gray",
+                        anchorColor: "white",
                         pixelOffset: new naver.maps.Point(20, -20)
                     });
 
@@ -244,7 +251,7 @@ function separateDutyTime(itm){
             let startM = String(startTime).substring(2,4);
             let closeH = String(closeTime).substring(0,2);
             let closeM = String(closeTime).substring(2,4);
-            res += tmpArr[i] + " - " + startH + ":" + startM + " ~ " + closeH + ":" + closeM + "<br>";
+            res += "<div class='div_inner_duty'>"+tmpArr[i] + " - " + startH + ":" + startM + " ~ " + closeH + ":" + closeM + "</div>";
         }
     }
 
