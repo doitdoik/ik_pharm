@@ -161,13 +161,13 @@ async function ajaxPharmacy(map, sido, gugun){
                         contentString = [
                             '<div class="iw_inner">',
                             '   <div><h2>' + dutyName + '</h2></div>',
-                            '   <div><img src="/ico/location.png" style="height:2vh">' + dutyAddr + '</div>',
+                            '   <div class="iw_inner_div"><img src="/ico/location.png" style="height:1vh">' + dutyAddr + '</div>',
                             '   <div class="iw_inner_div">',
                             '   <span><a href="nmap://route/public?dlat='+itm.wgs84Lat+'&dlng='+itm.wgs84Lon+'&dname='+encodeURI(dutyName)+'"> 길찾기 </a></span>',
                             '   </div>',
-                            '   <div><img src="/ico/call.png" style="height:2vh"><a/ href="tel:' + dutyTel1 + '">' + dutyTel1 + '</a></div>',
-                            '   <div>영업시간</div>', 
-                            '   <div>' + dutyTime + '</div>',
+                            '   <div class="iw_inner_div"><img src="/ico/call.png" style="height:2vh"><a/ href="tel:' + dutyTel1 + '">' + dutyTel1 + '</a></div>',
+                            '   <div class="iw_inner_div">영업시간</div>', 
+                            '   <div class="iw_inner_duty">' + dutyTime + '</div>',
                             '   ',
                             '</div>'
                         ].join('');
